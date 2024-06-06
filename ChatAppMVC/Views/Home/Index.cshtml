@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="jumbotron mt-5">
+                <h1 class="display-4">Welcome to ChatAppMVC</h1>
+                <p class="lead">Connect with friends, family, and colleagues in real-time with our chat application.</p>
+                <hr class="my-4">
+                <p>Start chatting now or learn more about our features.</p>
+                <a class="btn btn-primary btn-lg" asp-action="HomePage" asp-controller="Chat" role="button">Start Chatting</a>
+                <a class="btn btn-outline-secondary btn-lg ml-2" asp-action="HomePage" asp-controller="Chat" role="button">Learn More</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-5" id="features">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">Key Features</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Real-time Chat</h5>
+                            <p class="card-text">Chat instantly with your contacts without any delay.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">User-friendly Interface</h5>
+                            <p class="card-text">Intuitive design for a seamless chatting experience.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Secure Communication</h5>
+                            <p class="card-text">Your messages are encrypted for privacy and security.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Get Started Today</h3>
+                    <p class="card-text">Join thousands of users who are already enjoying the benefits of ChatAppMVC. Start chatting now and stay connected!</p>
+                    <a class="btn btn-primary btn-lg btn-block" asp-action="HomePage" asp-controller="Chat" role="button">Start Chatting</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

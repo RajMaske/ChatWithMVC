@@ -1,0 +1,42 @@
+﻿@page
+@model ChatAppMVC.Models.ChatViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+
+<h3>Chat</h3>
+
+<div>
+    <input id="userInput" placeholder="Name" />
+    <input id="messageInput" placeholder="Message" onkeydown="if(event.key === 'Enter') sendMessage()" />
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<ul id="messagesList"></ul>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.9/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chathub")
+        .build();
+
+    connection.on("ReceiveMessage", (user, message) => {
+        const msg = document.createElement("li");
+        msg.textContent = `${user}: ${message}`;
+        document.getElementById("messagesList").appendChild(msg);
+    });
+
+    connection.start().catch(err => console.error(err.toString()));
+
+    function sendMessage() {
+        const user = document.getElementById("userInput").value;
+        const message = document.getElementById("messageInput").value;
+        connection.send("SendMessage", user, message).catch(err => console.error(err.toString()));
+        document.getElementById("messageInput").value = '';
+    }
+</script>

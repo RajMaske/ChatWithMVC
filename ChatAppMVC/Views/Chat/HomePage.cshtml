@@ -1,0 +1,79 @@
+﻿@model ChatAppMVC.Models.ChatViewModel
+
+@{
+    ViewData["Title"] = "Chat";
+}
+
+<div class="container-fluid h-100 d-flex flex-column">
+    <div class="row justify-content-center my-3">
+        <div class="col-md-8">
+            <h3 class="text-center">@ViewData["Title"]</h3>
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    Chat Room
+                </div>
+                <div class="card-body" id="chatContainer">
+                    <ul id="messagesList" class="list-unstyled mb-3"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fixed-bottom bg-light py-3">
+        <div class="container">
+            <div class="input-group mb-3">
+                <input id="userInput" class="form-control" placeholder="Name" aria-label="User Name" required/>
+            </div>
+            <div class="input-group">
+                <input id="messageInput" class="form-control" placeholder="Message" onkeydown="if(event.key === 'Enter') sendMessage()" aria-label="Message" />
+                <div class="input-group-append d-flex align-items-center justify-content-center">
+                    <button class="btn btn-primary" type="button" onclick="sendMessage()"><i class="fas fa-paper-plane"></i>Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.9/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chathub")
+        .build();
+
+    connection.on("ReceiveMessage", (user, message) => {
+        const msg = document.createElement("li");
+        msg.className = user === document.getElementById("userInput").value ? "media my-3 text-right" : "media my-3";
+
+        const userIcon = document.createElement("div");
+        userIcon.className = "media-left";
+        userIcon.innerHTML = `<i class="fas fa-user-circle fa-2x"></i>`;
+
+        const mediaBody = document.createElement("div");
+        mediaBody.className = user === document.getElementById("userInput").value ? "media-body ml-3 bg-primary text-white p-2 rounded" : "media-body ml-3 bg-light text-dark p-2 rounded";
+        mediaBody.innerHTML = `<h5 class="mt-0 mb-1">${user}</h5><p>${message}</p>`;
+
+        if (user === document.getElementById("userInput").value) {
+            msg.appendChild(mediaBody);
+            msg.appendChild(userIcon);
+        } else {
+            msg.appendChild(userIcon);
+            msg.appendChild(mediaBody);
+        }
+
+        document.getElementById("messagesList").appendChild(msg);
+        msg.scrollIntoView();
+    });
+
+    connection.start().catch(err => console.error(err.toString()));
+
+    function sendMessage() {
+        const user = document.getElementById("userInput").value;
+        const message = document.getElementById("messageInput").value;
+        if (user != "" && message != "") {
+            connection.send("SendMessage", user, message).catch(err => console.error(err.toString()));
+            document.getElementById("messageInput").value = '';
+        }
+        else{
+            alert("Enter Name and Message")
+        }
+    }
+</script>

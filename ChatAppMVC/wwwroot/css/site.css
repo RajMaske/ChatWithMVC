@@ -1,0 +1,72 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    flex: 1;
+}
+
+#chatContainer {
+    height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+#messagesList {
+    padding-top: 10px;
+}
+
+    #messagesList .media {
+        display: flex;
+        align-items: flex-start;
+    }
+
+        #messagesList .media.my-3.text-right .media-body {
+            order: -1;
+        }
+
+.media-body h5 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.media-body p {
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+.input-group-append {
+    margin-left: 10px;
+}
+
+.fixed-bottom {
+    background-color: #f8f9fa;
+}
+
+.input-group .form-control {
+    border-radius: 0.25rem;
+    padding: 10px;
+}
+
+.input-group-append .btn {
+    border-radius: 0.25rem;
+}
